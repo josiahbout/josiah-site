@@ -29,15 +29,16 @@ h1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:3rem;l
 .copy{margin-top:20px;display:inline-grid;font:inherit;font-size:.85rem;font-weight:500;color:var(--on-accent);background:var(--accent);border:0;border-radius:999px;padding:9px 20px;cursor:pointer;transition:filter .25s ease,transform .25s ease}
 .copy:hover{filter:brightness(1.12);transform:translateY(-1px)}
 .copy:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.copy>span{grid-area:1/1;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:opacity .3s ease,transform .3s ease}
-.copy i{display:inline-block}
-.copy .done{opacity:0;transform:translateY(8px)}
+.copy>span{grid-area:1/1;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:opacity .35s ease,transform .5s cubic-bezier(.2,.8,.2,1),filter .35s ease}
+.copy i{display:inline-block;transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.copy:hover .idle i{transform:rotate(-10deg) scale(1.1)}
+.copy .done{opacity:0;transform:translateY(10px);filter:blur(4px)}
 .contact{margin-top:80px;text-align:center}
 .contact .copy{margin-top:0}
-.copy.copied .idle{opacity:0;transform:translateY(-8px)}
-.copy.copied .done{opacity:1;transform:none}
-.copy.copied .done i{animation:mail .8s cubic-bezier(.2,.8,.3,1.2)}
-@keyframes mail{0%{opacity:0;transform:translate(-12px,8px) rotate(-20deg) scale(.4)}55%{opacity:1;transform:translate(3px,-4px) rotate(8deg) scale(1.15)}80%{transform:translate(0,1px) rotate(-3deg) scale(.97)}100%{transform:none}}
+.copy.copied .idle{opacity:0;transform:translateY(-10px);filter:blur(4px)}
+.copy.copied .done{opacity:1;transform:none;filter:none}
+.copy.copied .done i{animation:tick .6s cubic-bezier(.3,1.4,.5,1) .08s both}
+@keyframes tick{from{opacity:0;transform:scale(.4) rotate(-20deg)}to{opacity:1;transform:none}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 ol{list-style:none;margin:0;padding:0;position:relative}
 ol::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--line);transform-origin:top;transform:scaleY(0);animation:draw 1.4s cubic-bezier(.65,0,.25,1) .75s forwards}
@@ -87,7 +88,7 @@ footer{margin-top:48px;text-align:center;font-size:.8rem;color:var(--muted)}
 <a href="https://www.linkedin.com/in/josiahbout" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
 <a href="https://www.tiktok.com/@josiahbout" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
 </nav>
-<div class="a" style="--i:4"><button class="copy" type="button" data-email="josiahbout@gmail.com"><span class="idle"><i class="fa-solid fa-copy" aria-hidden="true"></i>Copy my email</span><span class="done" aria-hidden="true"><i class="fa-solid fa-envelope"></i>Copied!</span></button><span class="sr" aria-live="polite"></span></div>
+<div class="a" style="--i:4"><button class="copy" type="button" data-email="josiahbout@gmail.com" aria-label="Contact me: copy my email address"><span class="idle"><i class="fa-solid fa-envelope" aria-hidden="true"></i>Contact me!</span><span class="done" aria-hidden="true"><i class="fa-solid fa-copy"></i>Email copied!</span></button><span class="sr" aria-live="polite"></span></div>
 </header>
 <ol aria-label="Timeline">
 <li class="a now" style="--i:5"><time>2026 &ndash; Ongoing</time>
@@ -117,7 +118,7 @@ footer{margin-top:48px;text-align:center;font-size:.8rem;color:var(--muted)}
 <li class="a" style="--i:7"><time>2021 &ndash; 2024</time><p>3D generalist at a commercial animation studio</p></li>
 <li class="a" style="--i:8"><time>2021</time><p>Graduated with a bachelor's in computer animation</p></li>
 </ol>
-<div class="contact a" style="--i:9"><button class="copy" type="button" data-email="josiahbout@gmail.com"><span class="idle"><i class="fa-solid fa-copy" aria-hidden="true"></i>Copy my email</span><span class="done" aria-hidden="true"><i class="fa-solid fa-envelope"></i>Copied!</span></button><span class="sr" aria-live="polite"></span></div>
+<div class="contact a" style="--i:9"><button class="copy" type="button" data-email="josiahbout@gmail.com" aria-label="Contact me: copy my email address"><span class="idle"><i class="fa-solid fa-envelope" aria-hidden="true"></i>Contact me!</span><span class="done" aria-hidden="true"><i class="fa-solid fa-copy"></i>Email copied!</span></button><span class="sr" aria-live="polite"></span></div>
 <footer class="a" style="--i:10">&copy; 2026 Josiah</footer>
 </main>
 <script>
