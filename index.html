@@ -78,7 +78,7 @@ li p.one-line{white-space:nowrap;font-size:min(1.1rem,calc((100vw - 84px) / 22.5
 .logos .track{--gap:44px;align-items:center;animation-duration:30s;animation-direction:reverse}
 .logos img{height:26px;width:auto;flex:none;opacity:.75}
 .logos img[src$="airlearn.svg"]{height:20px}
-.logos img[src$="porkbun.svg"]{height:32px}
+.logos.hold .track{animation-play-state:paused}
 @media (prefers-color-scheme:dark){.logos img{filter:invert(1)}}
 footer{margin-top:48px;text-align:center;font-size:.8rem;color:var(--muted)}
 .a{opacity:0;animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--i) * 110ms + 100ms)}
@@ -130,15 +130,16 @@ footer{margin-top:48px;text-align:center;font-size:.8rem;color:var(--muted)}
 </div>
 </div>
 <div class="marquee logos" aria-label="Clients">
+<!-- DOM order is reversed: the row moves left-to-right, so viewers see Microsoft, Amazon, Motorola, Accenture, Airlearn, FA, Porkbun -->
 <div class="track">
-<img src="/logos/motorola.webp" width="417" height="96" alt="Motorola">
-<img src="/logos/microsoft.webp" width="450" height="96" alt="Microsoft">
+<img src="/logos/porkbun.svg" width="283" height="59" alt="Porkbun">
 <img src="/logos/fa.webp" width="112" height="96" alt="FA">
-<img src="/logos/amazon.webp" width="316" height="96" alt="Amazon">
-<img src="/logos/accenture.webp" width="362" height="96" alt="Accenture">
 <img src="/logos/airlearn.svg" width="184" height="30" alt="Airlearn">
-<img src="/logos/porkbun.svg" width="356" height="60" alt="Porkbun">
-<span aria-hidden="true" style="display:contents"><img src="/logos/motorola.webp" width="417" height="96" alt=""><img src="/logos/microsoft.webp" width="450" height="96" alt=""><img src="/logos/fa.webp" width="112" height="96" alt=""><img src="/logos/amazon.webp" width="316" height="96" alt=""><img src="/logos/accenture.webp" width="362" height="96" alt=""><img src="/logos/airlearn.svg" width="184" height="30" alt=""><img src="/logos/porkbun.svg" width="356" height="60" alt=""></span>
+<img src="/logos/accenture.webp" width="362" height="96" alt="Accenture">
+<img src="/logos/motorola.webp" width="417" height="96" alt="Motorola">
+<img src="/logos/amazon.webp" width="316" height="96" alt="Amazon">
+<img src="/logos/microsoft.webp" width="450" height="96" alt="Microsoft" data-start>
+<span aria-hidden="true" style="display:contents"><img src="/logos/porkbun.svg" width="283" height="59" alt=""><img src="/logos/fa.webp" width="112" height="96" alt=""><img src="/logos/airlearn.svg" width="184" height="30" alt=""><img src="/logos/accenture.webp" width="362" height="96" alt=""><img src="/logos/motorola.webp" width="417" height="96" alt=""><img src="/logos/amazon.webp" width="316" height="96" alt=""><img src="/logos/microsoft.webp" width="450" height="96" alt=""></span>
 </div>
 </div>
 <!-- Placeholder testimonials: hidden, kept for later -->
@@ -168,6 +169,7 @@ footer{margin-top:48px;text-align:center;font-size:.8rem;color:var(--muted)}
 <script>
 document.querySelectorAll('.copy').forEach((btn) => { const live=btn.parentElement.querySelector('.sr'); let timer; btn.addEventListener('click', async () => { const email=btn.dataset.email; try { await navigator.clipboard.writeText(email); } catch (e) { const t=document.createElement('textarea'); t.value=email; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); } btn.classList.remove('copied'); void btn.offsetWidth; btn.classList.add('copied'); live.textContent='Email copied'; clearTimeout(timer); timer=setTimeout(() => { btn.classList.remove('copied'); live.textContent=''; }, 2200); }); });
 document.querySelectorAll('.yt').forEach((btn) => { btn.addEventListener('click', () => { const f=document.createElement('iframe'); f.src='https://www.youtube-nocookie.com/embed/'+btn.dataset.id+'?autoplay=1&rel=0'; f.title=btn.getAttribute('aria-label').replace(/^Play /,''); f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen=true; const box=document.createElement('div'); box.className=btn.className.replace(' yt',''); box.appendChild(f); btn.replaceWith(box); }); });
+document.querySelectorAll('.logos').forEach((m) => { const tr=m.querySelector('.track'), first=tr.querySelector('[data-start]'); if (!first) return; const gap=parseFloat(getComputedStyle(tr).columnGap)||0, D=tr.getBoundingClientRect().width/2+gap/2; let T=m.clientWidth*0.85-(first.getBoundingClientRect().right-tr.getBoundingClientRect().left); while (T>0) T-=D; while (T<-D) T+=D; if (matchMedia('(prefers-reduced-motion: reduce)').matches) { m.scrollLeft=-T; return; } const dur=parseFloat(getComputedStyle(tr).animationDuration)||30; tr.style.animationDelay=(-(1+T/D)*dur)+'s'; m.classList.add('hold'); const io=new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { m.classList.remove('hold'); io.disconnect(); } }, {threshold:0.6}); io.observe(m); });
 </script>
 </body>
 </html>
