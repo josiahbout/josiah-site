@@ -61,6 +61,9 @@ li p.one-line{white-space:nowrap;font-size:min(1.1rem,calc((100vw - 84px) / 22.5
 .frame-tall{aspect-ratio:2/3;width:min(220px,100%)}
 .frame-wide{aspect-ratio:16/9;width:100%}
 .frame img,.frame video,.frame iframe{width:100%;height:100%;object-fit:cover;border:0;display:block}
+.yt{position:relative;padding:0;font:inherit;cursor:pointer}
+.yt .play{position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.55);color:#fff;font-size:1.3rem;padding-left:4px;transition:transform .25s ease,background .25s ease}
+.yt:hover .play,.yt:focus-visible .play{transform:scale(1.08);background:rgba(0,0,0,.75)}
 .marquee{margin-top:16px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 .track{display:flex;gap:12px;width:max-content;animation:scroll 45s linear infinite}
 .marquee:hover .track{animation-play-state:paused}
@@ -82,7 +85,7 @@ footer{margin-top:48px;text-align:center;font-size:.8rem;color:var(--muted)}
 <body>
 <main>
 <header>
-<img class="avatar a" style="--i:0" src="https://github.com/josiahbout.png?size=256" alt="Josiah">
+<img class="avatar a" style="--i:0" src="/avatar.webp" width="128" height="128" alt="Josiah">
 <h1 class="a" style="--i:1">Josiah <span class="followers">&ndash; 42k followers</span></h1>
 <p class="role a" style="--i:2">3D Generalist &amp; Content Creator</p>
 <nav class="social a" style="--i:3" aria-label="Social links">
@@ -97,12 +100,13 @@ footer{margin-top:48px;text-align:center;font-size:.8rem;color:var(--muted)}
 <ol aria-label="Timeline">
 <li class="a now" style="--i:5"><time>2026 &ndash; Ongoing</time>
 <p class="one-line">Working on <a class="accent" href="https://thechubbitz.com" target="_blank" rel="noopener">@TheChubbitz<i class="fa-solid fa-arrow-up-right-from-square ext" aria-hidden="true"></i></a> <span class="note">&ndash; 230k followers</span></p>
-<div class="frame frame-tall"><video src="/my-work/chubbitz-reel-1.mp4" poster="/my-work/chubbitz-reel-1-poster.webp" autoplay muted loop playsinline preload="auto" aria-label="TheChubbitz reel"></video></div>
+<a class="frame frame-tall" href="https://thechubbitz.com/" target="_blank" rel="noopener" aria-label="Visit TheChubbitz website"><video src="/my-work/chubbitz-reel-1.mp4" poster="/my-work/chubbitz-reel-1-poster.webp" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video></a>
 </li>
 <li class="a now" style="--i:6"><time>2025 &ndash; Ongoing</time>
 <p><a class="accent" href="/my-work/">Freelancing!<i class="fa-solid fa-arrow-up-right-from-square ext" aria-hidden="true"></i></a></p>
-<div class="frame frame-wide"><i class="fa-solid fa-play" aria-hidden="true"></i></div>
-<div class="marquee" aria-label="Testimonials">
+<button class="frame frame-wide yt" type="button" data-id="-Hc92EysxwA" aria-label="Play Josiah Bout Reel"><img src="/my-work/reel-thumb.webp" width="960" height="540" alt=""><span class="play" aria-hidden="true"><i class="fa-solid fa-play"></i></span></button>
+<!-- Placeholder testimonials: hidden until real ones are added -->
+<div class="marquee" aria-label="Testimonials" hidden>
 <div class="track">
 <figure class="quote"><blockquote>Josiah turned a rough idea into a polished 3D spot in under two weeks. Effortless to work with.</blockquote><figcaption><b>Maya R.</b> &middot; Creative Director</figcaption></figure>
 <figure class="quote"><blockquote>Fast, communicative, and the renders blew our client away.</blockquote><figcaption><b>Daniel K.</b> &middot; Agency Producer</figcaption></figure>
@@ -127,6 +131,7 @@ footer{margin-top:48px;text-align:center;font-size:.8rem;color:var(--muted)}
 </main>
 <script>
 document.querySelectorAll('.copy').forEach((btn) => { const live=btn.parentElement.querySelector('.sr'); let timer; btn.addEventListener('click', async () => { const email=btn.dataset.email; try { await navigator.clipboard.writeText(email); } catch (e) { const t=document.createElement('textarea'); t.value=email; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); } btn.classList.remove('copied'); void btn.offsetWidth; btn.classList.add('copied'); live.textContent='Email copied'; clearTimeout(timer); timer=setTimeout(() => { btn.classList.remove('copied'); live.textContent=''; }, 2200); }); });
+document.querySelectorAll('.yt').forEach((btn) => { btn.addEventListener('click', () => { const f=document.createElement('iframe'); f.src='https://www.youtube-nocookie.com/embed/'+btn.dataset.id+'?autoplay=1&rel=0'; f.title=btn.getAttribute('aria-label').replace(/^Play /,''); f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen=true; const box=document.createElement('div'); box.className=btn.className.replace(' yt',''); box.appendChild(f); btn.replaceWith(box); }); });
 </script>
 </body>
 </html>
