@@ -65,7 +65,7 @@ li p.one-line{white-space:nowrap;font-size:min(1.1rem,calc((100vw - 84px) / 22.5
 .yt .play{position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.55);color:#fff;font-size:1.3rem;padding-left:4px;transition:transform .25s ease,background .25s ease}
 .yt:hover .play,.yt:focus-visible .play{transform:scale(1.08);background:rgba(0,0,0,.75)}
 .marquee{margin-top:16px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-.track{display:flex;gap:12px;width:max-content;animation:scroll 45s linear infinite}
+.track{--gap:12px;display:flex;gap:var(--gap);width:max-content;animation:scroll 45s linear infinite}
 .marquee:hover .track{animation-play-state:paused}
 .quote{width:240px;flex:none;margin:0;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
 .quote blockquote{margin:0;font-size:.9rem;line-height:1.5}
@@ -73,7 +73,11 @@ li p.one-line{white-space:nowrap;font-size:min(1.1rem,calc((100vw - 84px) / 22.5
 .quote figcaption b{color:var(--fg);font-weight:500}
 .quote .who{display:flex;align-items:center;gap:8px}
 .who img{width:28px;height:28px;border-radius:50%;object-fit:cover;flex:none}
-@keyframes scroll{to{transform:translateX(calc(-50% - 6px))}}
+@keyframes scroll{to{transform:translateX(calc(-50% - var(--gap) / 2))}}
+.logos{margin-top:20px}
+.logos .track{--gap:44px;align-items:center;animation-duration:30s;animation-direction:reverse}
+.logos img{height:26px;width:auto;flex:none;opacity:.75}
+@media (prefers-color-scheme:dark){.logos img{filter:invert(1)}}
 footer{margin-top:48px;text-align:center;font-size:.8rem;color:var(--muted)}
 .a{opacity:0;animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--i) * 110ms + 100ms)}
 .avatar.a{animation-name:pop;animation-duration:1.1s}
@@ -121,6 +125,16 @@ footer{margin-top:48px;text-align:center;font-size:.8rem;color:var(--muted)}
 <figure class="quote" aria-hidden="true"><blockquote>&ldquo;The rest of the team and I are very happy with the results, and I look forward to working with him again.&rdquo;</blockquote><figcaption class="who"><img src="/testimonials/ross.webp" width="28" height="28" alt=""><span><b>Ross</b> &middot; Creative Director</span></figcaption></figure>
 <figure class="quote" aria-hidden="true"><blockquote>&ldquo;Quickly became an essential part of the team, we have no doubt he will bring the same energy to any future opportunity.&rdquo;</blockquote><figcaption class="who"><img src="/testimonials/nicolo.webp" width="28" height="28" alt=""><span><b>Nicolo</b> &middot; Director</span></figcaption></figure>
 <figure class="quote" aria-hidden="true"><blockquote>&ldquo;An invaluable asset for getting us top-notch 3D renders for our website.&rdquo;</blockquote><figcaption class="who"><img src="/testimonials/ken.webp" width="28" height="28" alt=""><span><b>Ken</b> &middot; CEO</span></figcaption></figure>
+</div>
+</div>
+<div class="marquee logos" aria-label="Clients">
+<div class="track">
+<img src="/logos/motorola.webp" width="417" height="96" alt="Motorola">
+<img src="/logos/microsoft.webp" width="450" height="96" alt="Microsoft">
+<img src="/logos/fa.webp" width="112" height="96" alt="FA">
+<img src="/logos/amazon.webp" width="316" height="96" alt="Amazon">
+<img src="/logos/accenture.webp" width="362" height="96" alt="Accenture">
+<span aria-hidden="true" style="display:contents"><img src="/logos/motorola.webp" width="417" height="96" alt=""><img src="/logos/microsoft.webp" width="450" height="96" alt=""><img src="/logos/fa.webp" width="112" height="96" alt=""><img src="/logos/amazon.webp" width="316" height="96" alt=""><img src="/logos/accenture.webp" width="362" height="96" alt=""></span>
 </div>
 </div>
 <!-- Placeholder testimonials: hidden, kept for later -->
